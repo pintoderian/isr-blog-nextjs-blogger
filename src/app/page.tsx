@@ -6,6 +6,8 @@ import MoreStories from "@/components/more-stories";
 import { getAllPostsForHome } from "@/lib/api";
 import { Post } from "@/types/posts";
 
+export const revalidate = 60;
+
 export default async function Home() {
   const allPosts = await getAllPostsForHome();
   const heroPost = allPosts[0] as Post;

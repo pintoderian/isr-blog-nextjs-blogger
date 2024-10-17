@@ -15,7 +15,11 @@ export const replaceImageSize = (
   url: string,
   newSize: string = "s1600"
 ): string => {
-  return url.replace(/=.*$/, `=${newSize}`).replace("s72-c", newSize);
+  return url
+    .replace(/=.*$/, `=${newSize}`)
+    .replace("s72-c", newSize)
+    .replace("s72-w640-h428-c", newSize)
+    .replace("s72-w640-h360-c", newSize);
 };
 
 export const formatedEntryPosts = (post: any) => {
