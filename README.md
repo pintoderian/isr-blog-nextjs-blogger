@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Incremental Static Regeneration Blog Example Using Next.js and Blogger
 
-## Getting Started
+This project showcases how to use [Next.js](https://nextjs.org) with [Blogger](https://www.blogger.com) as the data source, implementing **Incremental Static Regeneration** (ISR). The blog allows pages to be statically generated and automatically regenerated with updated content from the server, making it ideal for blogs and sites that rely on dynamic content.
 
-First, run the development server:
+## Features
+
+- **Next.js with ISR**: Utilizes Next.js's incremental static regeneration for real-time content updates.
+- **Blogger Feeds**: The blog content is generated based on [Blogger's Atom or RSS feeds](https://support.google.com/blogger/answer/97933?hl=en). Make sure to enable and set your Blogger feed to "Full" to ensure all the content is available for the Next.js site.
+- **SEO-friendly**: Easy configuration to control meta tags, such as `robots`, to allow or block content indexing.
+- **Prevent Duplicate Content**: It's recommended to disable your Blogger blog from search engine indexing to avoid duplicate content in Google and focus indexing efforts on the Next.js site.
+- **Easy deployment on Vercel**: Perfect for deploying on platforms like [Vercel](https://vercel.com).
+
+## Blogger Setup
+
+### 1. Enable and Configure Blogger Feeds
+
+To use this setup, you must enable the feed of your Blogger blog and set it to **Full** to provide complete article data.
+
+- Go to your Blogger dashboard.
+- Navigate to **Settings** > **Other**.
+- Under **Site Feed**, ensure the feed is set to **Full**.
+
+### 2. Disable Blogger from Search Engine Indexing
+
+To prevent duplicate content from appearing on Google (both from Blogger and Next.js), it's highly recommended to disable the Blogger blog from being indexed by search engines:
+
+- Go to **Settings** > **Search preferences**.
+- Under **Crawlers and indexing**, turn **Custom robots.txt** on and provide a simple robots.txt that disallows all bots from indexing the Blogger site:
+
+  ```
+  User-agent: *
+  Disallow: /
+  ```
+
+This will ensure that only your Next.js site will be indexed, focusing traffic on your static site.
+
+## Configuration
+
+To run this project locally, you will need to set up some environment variables. Here’s an example of the variables required for production:
+
+### Environment Variables
+
+Create a `.env.local` file in the root of the project with the following content:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# URL of your Blogger blog's feed (Atom or RSS)
+BLOGGER_URL=https://www.miblogexample.com
+
+# Control whether to index pages by search engines
+ROBOT_NOINDEX=false
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **`BLOGGER_URL`**: The URL of your blog’s feed (you can use either the Atom feed or RSS feed).
+- **`ROBOT_NOINDEX`**: Controls whether pages should be indexed by search engines. Set to `true` to prevent indexing, or `false` to allow indexing.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to Run the Project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Clone this repository:
 
-## Learn More
+   ```bash
+   git clone https://github.com/pintoderian/isr-blog-nextjs-blogger.git
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Install dependencies:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Configure the environment variables as indicated above.
 
-## Deploy on Vercel
+4. Start the development server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. Open [http://localhost:3000](http://localhost:3000) to view the blog locally.
+
+## Demo
+
+You can see a live demo here:
+
+### [https://next-blog-blogger.vercel.app](https://next-blog-blogger.vercel.app)
+
+## Deploy to Production
+
+To deploy in production, you can use platforms like [Vercel](https://vercel.com):
+
+1. Connect your repository to Vercel.
+2. Set up the production environment variables in Vercel's settings.
+3. Deploy, and your site will be live within minutes.
+
+## Resources
+
+- [Next.js Documentation on ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)
+- [Blogger API](https://developers.google.com/blogger)
+- [Blogger Feeds Support](https://support.google.com/blogger/answer/97933?hl=en)
